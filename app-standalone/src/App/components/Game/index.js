@@ -85,10 +85,15 @@ const Game = () => {
     setStepNumber(history.length);
     setXisNext(!xIsNext);
 
+    const winner = calculateWinner(squares);
     //condition to verify if they are a winner and it push the winner in the winner game history.
-    if (calculateWinner(squares) !== null) {
-      setwinnerGameHistory([...winnerGameHistory, calculateWinner(squares)]);
+    if (winner !== null) {
+      setwinnerGameHistory([...winnerGameHistory, winner]);
+      setTimeout(() => {
+        alert(`${winner === "X" ? userName.player1 : userName.player2} win the game`);
+      }, 100);
     }
+    
   };
 
   const jumpTo = (step) => {
