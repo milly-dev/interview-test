@@ -11,6 +11,10 @@ const Game = () => {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
   const [winnerGameHistory, setwinnerGameHistory] = useState([]);
+  const [userName, setUserName] = useState({
+    player1: "",
+    player2: "",
+  });
 
   const calculateWinner = (squares) => {
     const lines = [
@@ -31,15 +35,15 @@ const Game = () => {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log(squares[b]); 
+        console.log(squares[b]);
         return squares[a];
       }
     }
 
-    return null; 
+    return null;
   };
 
-  //calculateWinnerLines function return the winning Lines or not. 
+  //calculateWinnerLines function return the winning Lines or not.
   const calculateWinnerLines = (squares) => {
     const lines = [
       [0, 1, 2],
@@ -59,11 +63,11 @@ const Game = () => {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log(squares[b]); 
+        console.log(squares[b]);
         return lines[i];
       }
     }
-    return []; 
+    return [];
   };
 
   const handleClick = (i) => {
@@ -75,13 +79,13 @@ const Game = () => {
       return;
     }
 
-    squares[i] = xIsNext ? "X" : "O";
+    squares[i] = xIsNext ? "X" : "0";
 
     setGameHistory([...history, { squares }]);
     setStepNumber(history.length);
     setXisNext(!xIsNext);
 
-    //condition to verify if they are a winner and it push the winner in the winner game history. 
+    //condition to verify if they are a winner and it push the winner in the winner game history.
     if (calculateWinner(squares) !== null) {
       setwinnerGameHistory([...winnerGameHistory, calculateWinner(squares)]);
     }
@@ -99,16 +103,18 @@ const Game = () => {
     const desc = move ? "Go to move #" + move : "Go to game start";
     return (
       <li key={move}>
-        <button className="button-move" onClick={() => jumpTo(move)}>{desc}</button>
+        <button className="button-move" onClick={() => jumpTo(move)}>
+          {desc}
+        </button>
       </li>
     );
   });
 
   let status;
   if (winner) {
-    status = "Winner: " + winner;
-  }  else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Winner: " + winner === "X" ? userName.player1 : userName.player2;
+  } else {
+    status = "Next player: " + (xIsNext ? userName.player1 : userName.player2);
   }
 
   return (
@@ -117,7 +123,7 @@ const Game = () => {
         <Board
           squares={current.squares}
           onClick={(i) => handleClick(i)}
-        //   We are sending the winnerLines prop to the board component
+          //   We are sending the winnerLines prop to the board component
           winnerLines={calculateWinnerLines(current.squares.slice())}
         />
       </div>
@@ -127,15 +133,35 @@ const Game = () => {
       </div>
       <div className="winner-game">
         <div>
-            {/* Map method to render all the winner.*/}
+          {/* Map method to render all the winner.*/}
           {winnerGameHistory.map((winner, i) => {
             return (
               <p>
-                Game {i + 1} : {winner}
+                Game {i + 1} :{" "}
+                {winner === "X" ? userName.player1 : userName.player2}
               </p>
             );
           })}
         </div>
+      </div>
+      <div className="box-player">
+        <label>Player X:</label>
+        <input
+          type="text"
+          value={userName.player1}
+          onChange={(e) =>
+            setUserName({ ...userName, player1: e.target.value })
+          }
+        />
+
+        <label>Player O:</label>
+        <input
+          type="text"
+          value={userName.player2}
+          onChange={(e) =>
+            setUserName({ ...userName, player2: e.target.value })
+          }
+        />
       </div>
     </div>
   );
