@@ -48,10 +48,18 @@ Please answer the following questions:
     
 1. Comparing the app-original and app-standalone code bases. The app-standalone code base has put each component in a separate file and directory structure.   
    * Why do you think that was done, what are the advantages / disadvantages?
+   
+The avantages to do it on its way, it's to have a better code structure. The code is easier to read and to test, because in the app-standalone code we are using functional components instead of class component. 
+If a developer is used to using the notion of class, it may take more time to adapt to this logic, which is different. 
 
 2. Thinking about a production ready app, what do you think is missing from all the examples? *Hint: the square component in the standalone app has one*
 
+In all the examples, unit tests are missing which allow us to be sure that the code is working well.
+
 3. Are you familiar with Redux? If so what is the basic idea behind it and what would be a good case for using it?
+
+The basic idea of ​​Redux is to allow better management of states in a complex application.
+Quite simply, it is better not to use redux for a small application that has very few components.
 
 4. *If you are interested in the full-stack role* Please take a look at the partial implementation of an express routes in backend/router.js.
     * Thinking of a production application, what issues do you see with this code? *List as many as you like* 
@@ -59,6 +67,8 @@ Please answer the following questions:
 ### Coding Challenges
 
 With either the app-standalone or app-redux (**not both** - whichever you are comfortable with), please complete the following changes:
+
+-> Go to app-standolone. 
 
 1. Update the app so that is highlights the winning move.
 2. Update the app so that it allows for a named player X and Y, and it keeps a league table of who won each game.
