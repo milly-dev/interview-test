@@ -7,8 +7,8 @@ import Game from './components/Game';
 
 const App = () => (
     <Router>
-        <div className="App container">
-            <AppHeader/>
+        <div className="AppContainer">
+            <AppHeader className="app-header"/>
             <Switch>
                 <Route path="/" exact component={Game}/>
             </Switch>

@@ -13,6 +13,7 @@ const Game = () => {
   const [winnerGameHistory, setwinnerGameHistory] = useState([]);
 
   const calculateWinner = (squares) => {
+      // represente les combinaison gagnantes
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -31,7 +32,7 @@ const Game = () => {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log(squares[a]); //permet de savoir si X ou O gagne return a string
+        console.log(squares[b]); //permet de savoir si X ou O gagne return a string
         return squares[a];
       }
     }
@@ -71,7 +72,7 @@ const Game = () => {
     const desc = move ? "Go to move #" + move : "Go to game start";
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+        <button className="button-move" onClick={() => jumpTo(move)}>{desc}</button>
       </li>
     );
   });
@@ -79,7 +80,7 @@ const Game = () => {
   let status;
   if (winner) {
     status = "Winner: " + winner;
-  } else {
+  }  else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
