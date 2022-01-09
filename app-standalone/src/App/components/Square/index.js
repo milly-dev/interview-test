@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
 
 
 
-const Square = ({onClick, value, winner}) =>{
+const Square = ({onClick, value, highlight}) =>{
 
+    //function to highlight the winning move with a background color. 
     const WinnerHighlight = () => {
-        if (value === winner && value !== null){
+        if (highlight === true){
             return '#157a0f'
         }
         return '#fff'

@@ -6,12 +6,15 @@ import Square from '../Square';
 /**
  * A board for the game of tic-tac-toe.  A 3x3 square.
  */
-const Board = ({onClick, squares, winner}) => {
+const Board = ({onClick, squares, winnerLines}) => {
+  // [0,1,2]
     const renderSquare = (i) => (
         <Square
             value={squares[i]}
             onClick={() => onClick(i)}
-            winner={winner}
+            //it's return true when the index is contained in the winnerLines array. 
+            highlight={winnerLines.includes(i)}
+
         />
     );
 

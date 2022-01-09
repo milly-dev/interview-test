@@ -13,7 +13,6 @@ const Game = () => {
   const [winnerGameHistory, setwinnerGameHistory] = useState([]);
 
   const calculateWinner = (squares) => {
-      // represente les combinaison gagnantes
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -32,12 +31,39 @@ const Game = () => {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log(squares[b]); //permet de savoir si X ou O gagne return a string
+        console.log(squares[b]); 
         return squares[a];
       }
     }
 
-    return null; // si personne a gagné
+    return null; 
+  };
+
+  //calculateWinnerLines function return the winning Lines or not. 
+  const calculateWinnerLines = (squares) => {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        console.log(squares[b]); 
+        return lines[i];
+      }
+    }
+    return []; 
   };
 
   const handleClick = (i) => {
@@ -55,6 +81,7 @@ const Game = () => {
     setStepNumber(history.length);
     setXisNext(!xIsNext);
 
+    //condition to verify if they are a winner and it push the winner in the winner game history. 
     if (calculateWinner(squares) !== null) {
       setwinnerGameHistory([...winnerGameHistory, calculateWinner(squares)]);
     }
@@ -90,7 +117,8 @@ const Game = () => {
         <Board
           squares={current.squares}
           onClick={(i) => handleClick(i)}
-          winner={calculateWinner(current.squares.slice())}
+        //   We are sending the winnerLines prop to the board component
+          winnerLines={calculateWinnerLines(current.squares.slice())}
         />
       </div>
       <div className="game-info">
@@ -99,6 +127,7 @@ const Game = () => {
       </div>
       <div className="winner-game">
         <div>
+            {/* Map method to render all the winner.*/}
           {winnerGameHistory.map((winner, i) => {
             return (
               <p>
